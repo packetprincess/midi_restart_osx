@@ -1,7 +1,6 @@
 # midi_restart_osx
 Short program to restart the MIDI interface on OSX Yosemite
 
-@complexbits
 -------------------------------------------------------------
 
 ## Requires:
@@ -14,7 +13,9 @@ Short program to restart the MIDI interface on OSX Yosemite
 
 ## Run using control script restart-midi:
 
-### Usage: restart-midi <opts>
+### Usage:
+    restart-midi $lt;opts$gt;
+    
 ### Options include:
 
         --help|-h       This message
