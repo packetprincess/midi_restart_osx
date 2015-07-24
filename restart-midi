@@ -7,12 +7,6 @@
 #
 ################################################################################
 THIS=`basename $0`
-NOW=`date +%Y%M%D-%h%m%s`
-
-
-
-################################################################################
-# FUNCTIONS
 
 # usage message
 usage_msg(){
@@ -26,14 +20,12 @@ usage_msg(){
     exit 0
 }
 
-
-# parse arguments & set variables
-#get_args(){
-
+# unset variables if they are set
 [[ $DBG ]] && unset DBG
 [[ $QUIET ]] && unset QUIET
 [[ $FREQ ]] && unset FREQ
 
+# get arguments and set variables
 while [[ $# -gt 0 ]]; do
     case $1 in
 	--help|-h) usage_msg;;
@@ -44,27 +36,19 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+# print debug messages about settings
 [[ $DBG ]] && printf "\nDebug enabled.\n"
 [[ $DBG ]] && [[ $QUIET ]] && printf "Quiet mode enabled.\n"
 [[ $DBG ]] && [[ $FREQ ]] && printf "Frequency set to $FREQ.\n"
-#}
+
+# run the midi restart program according to settings
+[[ ! $FREQ ]] && ./midi_restart_osx
+while [[ $FREQ ]]; do
+    ./midi_restart_osx
+    sleep $FREQ
+done
 
 
-#restart_midi(){
-    [[ ! $FREQ ]] && ./midi_restart_osx
-    while [[ $FREQ ]]; do
-	./midi_restart_osx
-	sleep $FREQ
-    done
-    exit 0
-#}
+exit 0
 
-
-################################################################################
-# THE SCRIPT
-
-#get_args
-#restart_midi
-
-#exit 0
 
