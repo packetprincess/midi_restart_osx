@@ -11,3 +11,5 @@ gcc midi_restart_osx.m -o midi_restart_osx -ObjC -framework Foundation -framewor
 
 Requires:
 	/System/Library/Frameworks/CoreMIDI.framework
+
+

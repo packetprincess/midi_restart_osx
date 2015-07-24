@@ -1,0 +1,59 @@
+#!/bin/bash
+################################################################################
+# Script to handle MIDI restarts
+# @complexbits
+#
+# Invokes midi_restart_osx
+#
+################################################################################
+THIS=`basename $0`
+NOW=`date +%Y%M%D-%h%m%s`
+
+
+
+
+################################################################################
+# FUNCTIONS
+
+# usage message
+usage_msg(){
+
+    printf "\nUsage: $THIS <opts>\n"
+    printf "Options include:\n\n"
+    printf "\t--help|-h\tThis message\n"
+    printf "\t--debug|-d\tDebug mode\n"
+    printf "\t--quiet|-q\tQuiet mode\n"
+    printf "\t--freq|-f\tFrequency of recurring MIDI restarts, in seconds. Default is to restart only once and then quit. When -f is set, $THIS will continue to restart the MIDI interface until manually stopped.\n"
+    exit 0
+}
+
+
+# parse arguments & set variables
+get_args(){
+
+[[ $DBG ]] && unset DBG
+[[ $QUIET ]] && unset QUIET
+[[ $FREQ ]] && unset FREQ
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+	--help|-h) usage_msg;;
+	--debug|-d) DBG=1; shift 1;;
+	--quiet|-q) QUIET=1; shift 1;;
+	--freq|-f) FREQ=$2; shift 2;;
+	*) usage_msg;;
+    esac
+done
+
+}
+
+
+restart_midi(){
+
+    [[ ! $FREQ ]] && ./midi_restart_osx
+    while [[ $FREQ ]]; do
+	./midi_restart_osx
+	sleep $FREQ
+    done
+    exit 0
+}
