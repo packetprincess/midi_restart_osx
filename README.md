@@ -11,10 +11,10 @@ Short program to restart the MIDI interface on OSX Yosemite
 
 	gcc midi_restart_osx.m -o midi_restart_osx -ObjC -framework Foundation -framework CoreMIDI
 
-## Run using control script restart-midi:
+## Run using control script "restart-midi"
 
 ### Usage:
-    restart-midi $lt;opts$gt;
+    restart-midi <opts>
     
 ### Options include:
 
